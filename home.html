@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Com Carinho...</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: linear-gradient(to bottom, rgba(255, 222, 232, 0.6), rgba(255, 240, 245, 0.6)),
+                  url('https://i.gifer.com/2yqT.gif') no-repeat center center fixed;
+      background-size: cover;
+      color: #6b0023;
+      height: 100vh;
+    }
+
+    header {
+      background-color: #ff4d88;
+      color: #fff;
+      padding: 3rem 1rem;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.2rem;
+    }
+
+    .container {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .hearts {
+      font-size: 2rem;
+      color: #ff66a3;
+      margin-bottom: 1.5rem;
+    }
+
+    .message {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      color: #7a004b;
+    }
+
+    .card-area {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .card {
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      width: 280px;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card h3 {
+      color: #cc0066;
+      margin-bottom: 0.8rem;
+    }
+
+    .card p {
+      font-size: 1rem;
+      color: #5a0040;
+    }
+
+    .card a {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      background-color: #ff4d88;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .card a:hover {
+      background-color: #cc005f;
+    }
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      padding: 1rem;
+      background-color: #ffe0eb;
+      color: #99004d;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Com Todo Meu Carinho</h1>
+    <p>Uma página feita com amor só pra você...</p>
+  </header>
+
+  <main class="container" id="tela-inicial">
+    <div class="hearts">♥ ♥ ♥</div>
+    <div class="message">
+      Que cada pedacinho desta página te abrace como um carinho no coração.  
+      <br>Você é especial, e esse cantinho também é seu.
+    </div>
+
+    <div class="card-area">
+      <div class="card">
+        <h3>Mensagem Especial</h3>
+        <p>Um texto cheio de sentimentos pra você ler e sorrir.</p>
+        <button id="ler-btn" style="
+  font-size: 1rem;
+  padding: 0.6rem 1.4rem;
+  background-color: #ff4d88;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background-color 0.3s;
+">Ler mensagens</button>
+
+<br><br>
+
+<button id="escrever-btn" style="
+  font-size: 0.95rem;
+  padding: 0.5rem 1.2rem;
+  background-color: #ffc1d6;
+  color: #6b0023;
+  border: 2px solid #ff99bb;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+">Escreva seu texto</button>
+
+      </div>
+    </div>
+
+    <div id="message-form" style="display: none; margin-top: 2rem; width: 100%;">
+      <input type="text" id="titulo-mensagem" placeholder="Título da mensagem" style="
+        width: 100%;
+        max-width: 500px;
+        padding: 0.8rem;
+        margin-bottom: 1rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+      "><br>
+      <textarea id="nova-mensagem" placeholder="Escreva aqui sua mensagem..." rows="6" style="
+        width: 100%;
+        max-width: 500px;
+        padding: 1rem;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        resize: none;
+      "></textarea><br><br>
+      <button id="finalizar-btn" style="
+        padding: 0.5rem 1.2rem;
+        background-color: #ff4d88;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+      ">Finalizar</button>
+    </div>
+    
+
+  </main>
+
+  <!-- TELA DE LISTA DE MENSAGENS -->
+  <section id="tela-mensagens" class="container" style="display:none;">
+    <h2 style="margin-bottom: 1rem;">Suas Mensagens 💌</h2>
+    <div id="mensagens-lista" style="text-align: left;"></div>
+    <br>
+    <button onclick="voltarParaInicio()" style="padding: 0.5rem 1rem; background-color: #ff4d88; color: white; border: none; border-radius: 8px;">Voltar</button>
+  </section>
+
+  <!-- TELA DE LEITURA DE MENSAGEM -->
+  <section id="tela-leitura" class="container" style="display:none;">
+    <h2>Mensagem 💖</h2>
+    <div id="mensagem-completa" style="
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #7a004b;
+  text-align: left;
+  white-space: pre-wrap;
+  background-color: #fff0f5;
+  padding: 1.5rem;
+  border-radius: 12px;
+  max-width: 700px;
+  margin-inline: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+"></div>
+
+    <br>
+    <button onclick="voltarParaLista()" style="padding: 0.5rem 1rem; background-color: #ff4d88; color: white; border: none; border-radius: 8px;">Voltar para lista</button>
+  </section>
+
+  <footer>
+    Feito com carinho por alguém que te admira muito.
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    let mensagens = JSON.parse(localStorage.getItem("mensagens")) || [];
+
+
+    const btnLer = document.getElementById('ler-btn');
+    const btnEscrever = document.getElementById('escrever-btn');
+    const form = document.getElementById('message-form');
+    const campoMensagem = document.getElementById('nova-mensagem');
+    const btnFinalizar = document.getElementById('finalizar-btn');
+
+    const telaInicial = document.getElementById('tela-inicial');
+    const telaMensagens = document.getElementById('tela-mensagens');
+    const telaLeitura = document.getElementById('tela-leitura');
+
+    const mensagensLista = document.getElementById('mensagens-lista');
+    const mensagemCompleta = document.getElementById('mensagem-completa');
+
+
+
+   
+
+btnFinalizar.addEventListener('click', () => {
+  const titulo = document.getElementById('titulo-mensagem').value.trim();
+  const conteudo = campoMensagem.value.trim();
+
+  if (titulo && conteudo) {
+    mensagens.push({ titulo, conteudo });
+    localStorage.setItem("mensagens", JSON.stringify(mensagens));
+
+    campoMensagem.value = '';
+    document.getElementById('titulo-mensagem').value = '';
+    form.style.display = 'none';
+  } else {
+    alert("Preencha o título e a mensagem!");
+  }
+});
+
+
+    // Mostra o formulário para escrever mensagem ao clicar no botão "Escreva seu texto"
+    btnEscrever.addEventListener('click', () => {
+      form.style.display = 'block';  // Exibe o campo de escrever
+    });
+
+    // Finaliza a escrita da mensagem
+    btnFinalizar.addEventListener('click', () => {
+      const texto = campoMensagem.value.trim();
+      if (texto) {
+        mensagens.push(texto);
+        campoMensagem.value = '';
+        form.style.display = 'none';
+      }
+    });
+
+    btnLer.addEventListener('click', () => {
+      telaInicial.style.display = 'none';
+      telaMensagens.style.display = 'block';
+      mostrarListaMensagens();
+    });
+
+    function mostrarListaMensagens() {
+  mensagensLista.innerHTML = '';
+  if (mensagens.length === 0) {
+    mensagensLista.innerHTML = '<p>Nenhuma mensagem ainda...</p>';
+    return;
+  }
+
+  mensagens.forEach((msg, index) => {
+    const item = document.createElement('div');
+    item.style.marginBottom = '1.2rem';
+    item.innerHTML = `
+      <strong style="cursor: pointer; color: #cc005f; font-size: 1.1rem;" onclick="lerMensagem(${index})">${msg.titulo}</strong><br>
+      <button onclick="apagarMensagem(${index})" style="margin-top: 6px; background-color: #cc005f; color: white; border: none; padding: 0.3rem 0.8rem; border-radius: 6px;">Apagar</button>
+    `;
+    mensagensLista.appendChild(item);
+  });
+}
+
+
+function lerMensagem(index) {
+  telaMensagens.style.display = 'none';
+  telaLeitura.style.display = 'block';
+  mensagemCompleta.innerHTML = `
+    <h3 style="color: #a10052;">${mensagens[index].titulo}</h3>
+    <p style="margin-top: 1rem;">${mensagens[index].conteudo.replace(/\n/g, "<br>")}</p>
+  `;
+}
+
+function apagarMensagem(index) {
+  mensagens.splice(index, 1);  // Apaga a mensagem
+  localStorage.setItem("mensagens", JSON.stringify(mensagens));  // Atualiza o localStorage
+  mostrarListaMensagens();  // Recarrega a lista de mensagens
+}
+
+
+    function voltarParaInicio() {
+      telaMensagens.style.display = 'none';
+      telaInicial.style.display = 'block';
+    }
+
+    function voltarParaLista() {
+      telaLeitura.style.display = 'none';
+      telaMensagens.style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
